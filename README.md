@@ -1,15 +1,13 @@
-[![Build Status](https://travis-ci.org/jprov410/mqds.svg?branch=master)](https://travis-ci.org/jprov410/mqds)
+[![Build Status](https://travis-ci.org/jprovazza/mqds.svg?branch=master)](https://travis-ci.org/jprovazza/mqds)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![codecov](https://codecov.io/gh/jprov410/mqds/branch/master/graph/badge.svg)](https://codecov.io/gh/jprov410/mqds)
+[![codecov](https://codecov.io/gh/jprovazza/mqds/branch/master/graph/badge.svg)](https://codecov.io/gh/jprovazza/mqds)
 [![DOI](https://zenodo.org/badge/120659217.svg)](https://zenodo.org/badge/latestdoi/120659217)
 
-![alt text](https://github.com/jprov410/mqds/blob/master/images/logo.jpg)
+![alt text](https://github.com/jprovazza/mqds/blob/master/images/logo.jpg)
 
 __*A high-performance molecular quantum dynamics and spectroscopy package*__
 
-__*A C++ version of the code is currently in development here*__ https://github.com/jprov410/MQDScpp
-
-* Documentation and instructions for preparing input files can be found at ( https://jprov410.github.io/mqds ) 
+* Documentation and instructions for preparing input files can be found at ( https://jprovazza.github.io/mqds ) 
 
 #### This package is currently capable of the following calculations:
 
@@ -48,11 +46,11 @@ More Information
 ----
 
 * __Travis CI build status:__ gfortran - 4.9, 5, 6, 7 & pgf90
-[![Build Status](https://travis-ci.org/jprov410/mqds.svg?branch=master)](https://travis-ci.org/jprov410/mqds)
+[![Build Status](https://travis-ci.org/jprovazza/mqds.svg?branch=master)](https://travis-ci.org/jprovazza/mqds)
 * __Codecov report:__ coverage reported by gfortran-6 build on Travis 
-[![codecov](https://codecov.io/gh/jprov410/mqds/branch/master/graph/badge.svg)](https://codecov.io/gh/jprov410/mqds)
+[![codecov](https://codecov.io/gh/jprovazza/mqds/branch/master/graph/badge.svg)](https://codecov.io/gh/jprovazza/mqds)
 
-* __Documentation:__ Documentation can be found at ( https://jprov410.github.io/mqds ) 
+* __Documentation:__ Documentation can be found at ( https://jprovazza.github.io/mqds ) 
 
 ## Compilation
 
@@ -63,4 +61,4 @@ will be in the `run` directory. To build the documentation, execute `make docs`.
 
 __JP gratefully acknowledges the Molecular Sciences Software Institute for funding the development of the MQDS package__
 
-[![alt text](https://github.com/jprov410/mqds/blob/master/images/MolSSI-Logo-2.jpg)](http://molssi.org)
+[![alt text](https://github.com/jprovazza/mqds/blob/master/images/MolSSI-Logo-2.jpg)](http://molssi.org)
