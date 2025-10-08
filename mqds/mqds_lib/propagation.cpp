@@ -11,7 +11,7 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(_mqds, m) {
     m.doc() = R"pbdoc(
-        Pybind11 example plugin
+        Pybind11 MQDS plugin
         -----------------------
 
         .. currentmodule:: _mqds
