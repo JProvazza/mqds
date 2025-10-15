@@ -1,43 +1,21 @@
 """Module containing classes used to describe baths."""
 
-from abc import ABC, abstractmethod
+from enum import StrEnum, auto
 
 import numpy as np
 
-
-class PotentialBase(ABC):
-    """Abstract base class for potentials."""
-
-    @abstractmethod
-    def evaluate_potential(self, position: float) -> float:
-        pass
-
-    @abstractmethod
-    def evaluate_gradient(self, position: float) -> float:
-        pass
+from .bath_base import BathBase
+from .potentials import PotentialBase
 
 
-class PolynomialPotential(PotentialBase):
-    """Polynomial potentials."""
+class Distributions(StrEnum):
+    """Different types of phase space distributions."""
 
-    def __init__(self, coefficients: list[float] | np.ndarray) -> None:
-        self.coefficients = np.asarray(coefficients, dtype=float)
+    """Wigner Distribution."""
+    WIGNER = auto()
 
-    @staticmethod
-    def _evaluate_polynomial(coefficients: np.ndarray, position: float) -> float:
-        return np.sum([position**i * c for i, c in enumerate(coefficients)])
-
-    @property
-    def gradient_coefficients(self) -> np.ndarray:
-        return np.array(
-            [(i + 1) * coeff for i, coeff in enumerate(self.coefficients[1:])]
-        )
-
-    def evaluate_potential(self, position: float) -> float:
-        return self._evaluate_polynomial(self.coefficients, position)
-
-    def evaluate_gradient(self, position: float) -> float:
-        return self._evaluate_polynomial(self.gradient_coefficients, position)
+    """Boltzmann Distribution."""
+    BOLTZMANN = auto()
 
 
 class BathMode:
@@ -101,13 +79,50 @@ class BathMode:
         return -self.potential.evaluate_gradient(position=position_au)
 
 
-class Bath:
+class PhaseSpaceBath(BathBase):
     """Class for a bosonic bath described by a collection of modes.""" ""
 
-    def __init__(self, modes: list[BathMode]) -> None:
+    def __init__(self, modes: list[BathMode], distribution: Distributions) -> None:
         """Initialize a bath from a collection of bath modes.
 
         Args:
             modes (list[BathMode]): A list of modes to include in the bath.
         """
         self.modes = modes
+        self.distribution = distribution
+        self._positions = None
+        self._momenta = None
+
+    @classmethod
+    def from_spectral_density(cls):
+        msg = "Still have to decide on format for spectral density files."
+        raise NotImplementedError(msg)
+
+    @property
+    def n_modes(self) -> int:
+        """Number of modes in the phase space bath.
+
+        Returns:
+            int: Length of the modes list.
+        """
+        return len(self.modes)
+
+    @property
+    def initial_positions(self) -> int:
+        return self._positions
+
+    @property
+    def initial_momenta(self) -> int:
+        return self._momenta
+
+    def initialize(
+        self, temperature: float, n_traj: int, *, x_loc: float = 0.0, p_loc: float = 0.0
+    ) -> None:
+        sigma_x = 1.0 if self.distribution == Distributions.WIGNER else 2.0
+        sigma_p = 1.0 if self.distribution == Distributions.WIGNER else 2.0
+        self._positions = np.random.normal(
+            loc=x_loc, scale=sigma_x, size=(n_traj, self.n_modes)
+        )
+        self._momenta = np.random.normal(
+            loc=p_loc, scale=sigma_p, size=(n_traj, self.n_modes)
+        )

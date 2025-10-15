@@ -1,16 +1,19 @@
 # Available at setup time due to pyproject.toml
 import glob
+import os
 
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 from setuptools import find_packages, setup
 
 __version__ = "2.0.0"
 
+EIGEN_INCLUDE_DIR = os.path.abspath("/opt/homebrew/Cellar/eigen/3.4.1/include/eigen3")
+
 ext_modules = [
     Pybind11Extension(
         "_mqds",
         glob.glob("mqds/mqds_lib/*.cpp"),
-        # Example: passing in the version to the compiled code
+        include_dirs=[EIGEN_INCLUDE_DIR],
         define_macros=[("VERSION_INFO", __version__)],
     ),
 ]
