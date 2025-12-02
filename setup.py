@@ -7,7 +7,11 @@ from setuptools import find_packages, setup
 
 __version__ = "2.0.0"
 
-EIGEN_INCLUDE_DIR = os.path.abspath("/opt/homebrew/Cellar/eigen/3.4.1/include/eigen3")
+EIGEN_INCLUDE_DIR = os.environ.get("EIGEN_HOME")
+if EIGEN_INCLUDE_DIR is None:
+    msg = "Please set the 'EIGEN_HOME' environment variable before building."
+    raise OSError(msg)
+
 
 ext_modules = [
     Pybind11Extension(
